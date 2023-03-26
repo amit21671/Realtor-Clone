@@ -1,4 +1,4 @@
-import { BrowserRouter as Router ,Routes ,Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -7,45 +7,42 @@ import Offers from "./pages/Offers";
 import Signin from "./pages/Signin";
 import Header from "./Components.js/Header";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./Components.js/PrivateRoute";
 
-const  App =() => {
+const App = () => {
   return (
     <>
-    <Router>
-      <Header />
-<Routes>
-<Route path ="/" element={<Home/>}/>
-<Route path="/profile" element={<PrivateRoute />}>
-<Route path="/profile" element={<Profile />} />
-  </Route>
-<Route path ="/Sign-in" element={<Signin/>}/> 
-<Route path ="/forgot-password" element={<ForgotPassword/>}/> 
-<Route path ="/Sign-up" element={<Signup/>}/> 
-<Route path ="/Offers" element={<Offers/>}/> 
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route path="/Sign-in" element={<Signin />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/Sign-up" element={<Signup />} />
+          <Route path="/Offers" element={<Offers />} />
+        </Routes>
+      </Router>
 
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
 
-</Routes>
-
-    </Router>
-
-    <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
-
-<ToastContainer />
+      <ToastContainer />
     </>
   );
-}
+};
 
 export default App;
