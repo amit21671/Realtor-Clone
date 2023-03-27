@@ -2,20 +2,23 @@ import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../Components.js/OAuth";
-import {getAuth,createUserWithEmailAndPassword,updateProfile} from "firebase/auth"
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { db } from "../firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import{toast} from "react-toastify"
-
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    name : "",
+    name: "",
     email: "",
     password: "",
   });
-  const {name,email, password } = formData;
+  const { name, email, password } = formData;
   const navigate = useNavigate();
   function onChange(e) {
     setFormData((prevState) => ({
@@ -24,28 +27,31 @@ export default function Signup() {
     }));
   }
 
-  const  handelSubmit = async(evt)=>{
-     evt.preventDefault();
-     try {
-      const auth =getAuth()
-      const userCredential =  await createUserWithEmailAndPassword(auth,email,password)
+  const handelSubmit = async (evt) => {
+    evt.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      updateProfile(auth.currentUser,{
-        displayName :name 
-      })
-      const user =userCredential.user
-      const formDataCopy = {...formData}
-      delete formDataCopy.password
-      formDataCopy.timestamp =serverTimestamp();
-      await setDoc(doc(db,"users",user.uid),formDataCopy)
-      navigate("/")
-      toast.success("Sign up was Successful")
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      const user = userCredential.user;
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+      navigate("/");
+      toast.success("Sign up was Successful");
     } catch (error) {
-      console.log(error)
-      toast.error("something Went Wrong with the registration")
+      console.log(error);
+      toast.error("something Went Wrong with the registration");
     }
-  }
-
+  };
 
   return (
     <section>
@@ -59,7 +65,7 @@ export default function Signup() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form  onSubmit={handelSubmit}>
+          <form onSubmit={handelSubmit}>
             <input
               type="text"
               id="name"
@@ -68,7 +74,7 @@ export default function Signup() {
               placeholder="Full Name"
               className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
             />
-             <input
+            <input
               type="email"
               id="email"
               value={email}
@@ -99,12 +105,12 @@ export default function Signup() {
             </div>
             <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
               <p className="mb-6">
-               have a account Already?
+                have a account Already?
                 <Link
                   to="/sign-in"
                   className="text-red-600 hover:text-red-700 transition duration-200 ease-in-out ml-1"
                 >
-                  Sign-in 
+                  Sign-in
                 </Link>
               </p>
               <p>
@@ -125,7 +131,7 @@ export default function Signup() {
             <div className="flex items-center  my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
               <p className="text-center font-semibold mx-4">OR</p>
             </div>
-           <OAuth/>
+            <OAuth />
           </form>
         </div>
       </div>

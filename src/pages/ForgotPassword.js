@@ -20,7 +20,7 @@ export default function ForgotPassword() {
       await sendPasswordResetEmail(auth,email)
       toast.success("Email was sent ")
     } catch (error) {
-      toast.error("Something went wrong Unable to set the rset mail ")
+      toast.error("Something went wrong Unable to set the reset mail ")
     }
   }
 

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../Components.js/OAuth";
-import { signInWithEmailAndPassword,getAuth} from "firebase/auth";
-import {toast} from "react-toastify"
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -19,20 +19,22 @@ export default function SignIn() {
     }));
   }
 
-  const handelSubmit = async(e)=>{
-    e.preventDefault()
-   try {
-
-    const auth = getAuth()
-    const userCredential =await
-    signInWithEmailAndPassword(auth,email,password)
-    if(userCredential.user){
-      navigate("/")
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredential.user) {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Bad User Credentials");
     }
-   } catch (error) {
-    toast.error("Bad User Credentials")
-   }
-  }
+  };
 
   return (
     <section>
@@ -46,7 +48,7 @@ export default function SignIn() {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form  onSubmit={handelSubmit}>
+          <form onSubmit={handelSubmit}>
             <input
               type="email"
               id="email"
@@ -104,7 +106,7 @@ export default function SignIn() {
             <div className="flex items-center  my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
               <p className="text-center font-semibold mx-4">OR</p>
             </div>
-           <OAuth/>
+            <OAuth />
           </form>
         </div>
       </div>
